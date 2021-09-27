@@ -11,7 +11,7 @@ public class Application {
                 .build()
                 .parse(args);
 
-        if (params.help) {
+        if (params.help != null) {
             JCommander.newBuilder().addObject(params).build().usage();
             return;
         }

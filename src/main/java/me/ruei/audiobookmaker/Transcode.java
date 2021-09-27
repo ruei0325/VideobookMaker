@@ -29,8 +29,9 @@ public class Transcode {
             throw new RuntimeException("解析PDF文件失败，请检查源文件是否损坏");
         }
 
-        for (int i = 1; i <= pages; i++) {
-            var outPath = params.output + File.separator + i + ".jpg";
+        for (int i = 0; i < pages; i++) {
+            var page = i + 1;
+            var outPath = params.output + File.separator + page + ".jpg";
             var cmd = getImageMagicCommand(params.input, outPath, i);
             var out = new ByteArrayOutputStream();
             var err = new ByteArrayOutputStream();
@@ -39,10 +40,10 @@ public class Transcode {
                 CommandUtil.exec(cmd, 60 * 1000L, out, err);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("第" + i + "页转码失败：" + err);
+                System.out.println("第" + page + "页转码失败：" + err);
             }
 
-            System.out.println("第" + i + "页转码成功");
+            System.out.println("第" + page + "页转码成功");
         }
 
         System.out.println("PDF转码成功");
